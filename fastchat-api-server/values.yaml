@@ -28,20 +28,9 @@ serviceAccount:
 podAnnotations: {}
 podLabels: {}
 
-podSecurityContext: {}
-  # fsGroup: 2000
-
-securityContext: {}
-  # capabilities:
-  #   drop:
-  #   - ALL
-  # readOnlyRootFilesystem: true
-  # runAsNonRoot: true
-  # runAsUser: 1000
-
 service:
   type: ClusterIP
-  port: 80
+  port: 8000
 
 resources: {}
   # We usually recommend not to specify default resources and to leave this as a conscious
@@ -54,15 +43,6 @@ resources: {}
   # requests:
   #   cpu: 100m
   #   memory: 128Mi
-
-livenessProbe:
-  httpGet:
-    path: /
-    port: http
-readinessProbe:
-  httpGet:
-    path: /
-    port: http
 
 # Additional volumes on the output Deployment definition.
 volumes: []
@@ -77,8 +57,6 @@ volumeMounts: []
 #   mountPath: "/etc/foo"
 #   readOnly: true
 
-nodeSelector: {}
-
-tolerations: []
-
-affinity: {}
+env:
+  - name: FASTCHAT_WORKER_API_TIMEOUT
+    value: 300
