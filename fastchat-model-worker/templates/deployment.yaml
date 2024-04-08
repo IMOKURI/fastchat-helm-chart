@@ -45,9 +45,9 @@ spec:
             - --host
             - 0.0.0.0
             - --port
-            - {{ .Values.service.port }}
+            - "{{ .Values.service.port }}"
             - --num-gpus
-            - 2
+            - "2"
           ports:
             - name: fastchat-model-worker
               containerPort: {{ .Values.service.port }}

@@ -37,7 +37,7 @@ spec:
             - --host
             - 0.0.0.0
             - --port
-            - {{ .Values.service.port }}
+            - "{{ .Values.service.port }}"
           ports:
             - name: fastchat-controller
               containerPort: {{ .Values.service.port }}
