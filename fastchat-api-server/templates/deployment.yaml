@@ -41,7 +41,7 @@ spec:
             - --port
             - {{ .Values.service.port }}
           ports:
-            - name: http
+            - name: fastchat-api-server
               containerPort: {{ .Values.service.port }}
               protocol: TCP
           resources:

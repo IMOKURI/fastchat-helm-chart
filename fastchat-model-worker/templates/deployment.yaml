@@ -30,8 +30,26 @@ spec:
         - name: {{ .Chart.Name }}
           image: "{{ .Values.image.repository }}:{{ .Values.image.tag | default .Chart.AppVersion }}"
           imagePullPolicy: {{ .Values.image.pullPolicy }}
+          command: ["python"]
+          args:
+            - -m
+            - fastchat.serve.model_worker
+            - --model-names
+            - gpt-3.5-turbo,text-davinci-003,text-embedding-ada-002
+            - --model-path
+            - lmsys/vicuna-7b-v1.5
+            - --worker-address
+            - http://fastchat-model-worker:21000
+            - --controller-address
+            - http://fastchat-controller:20000
+            - --host
+            - 0.0.0.0
+            - --port
+            - {{ .Values.service.port }}
+            - --num-gpus
+            - 2
           ports:
-            - name: http
+            - name: fastchat-model-worker
               containerPort: {{ .Values.service.port }}
               protocol: TCP
           resources:
