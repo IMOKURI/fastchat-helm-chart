@@ -59,7 +59,7 @@ volumeMounts: []
 
 env:
   - name: FASTCHAT_WORKER_API_TIMEOUT
-    value: 300
+    value: "300"
   - name: HTTPS_PROXY
     value: http://hpeproxy.its.hpecorp.net:8080/
   - name: HTTP_PROXY
