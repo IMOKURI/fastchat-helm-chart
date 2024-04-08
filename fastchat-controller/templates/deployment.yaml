@@ -39,7 +39,7 @@ spec:
             - --port
             - "{{ .Values.service.port }}"
           ports:
-            - name: fastchat-controller
+            - name: controller
               containerPort: {{ .Values.service.port }}
               protocol: TCP
           resources:
