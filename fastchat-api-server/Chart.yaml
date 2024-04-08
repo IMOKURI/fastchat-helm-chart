@@ -24,6 +24,6 @@ version: 0.1.0
 appVersion: "0.0.1"
 
 dependencies:
-  - name: fastchat-model-worker
+  - name: fastchat-controller
     version: 0.1.0
-    repository: "file://../fastchat-model-worker"
+    repository: "file://../fastchat-controller"
