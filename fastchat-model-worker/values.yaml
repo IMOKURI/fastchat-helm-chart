@@ -48,7 +48,7 @@ resources:
 
 # Additional volumes on the output Deployment definition.
 volumes:
-  - name: xdg_cache_home
+  - name: xdg-cache-home
     hostPath:
       path: /data/home/sugiyama/.cache
 # - name: foo
@@ -58,7 +58,7 @@ volumes:
 
 # Additional volumeMounts on the output Deployment definition.
 volumeMounts:
-  - name: xdg_cache_home
+  - name: xdg-cache-home
     mountPath: /root/.cache
     readOnly: false
 # - name: foo
