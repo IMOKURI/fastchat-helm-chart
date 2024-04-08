@@ -30,7 +30,7 @@ spec:
         - name: {{ .Chart.Name }}
           image: "{{ .Values.image.repository }}:{{ .Values.image.tag | default .Chart.AppVersion }}"
           imagePullPolicy: {{ .Values.image.pullPolicy }}
-          command: ["python"]
+          command: ["python3"]
           args:
             - -m
             - fastchat.serve.openai_api_server
