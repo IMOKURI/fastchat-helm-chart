@@ -1,14 +1,14 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: {{ include "fastchat-model-worker.fullname" . }}
+  name: {{ include "fastchat-web-server.fullname" . }}
   labels:
-    {{- include "fastchat-model-worker.labels" . | nindent 4 }}
+    {{- include "fastchat-web-server.labels" . | nindent 4 }}
 spec:
   replicas: {{ .Values.replicaCount }}
   selector:
     matchLabels:
-      {{- include "fastchat-model-worker.selectorLabels" . | nindent 6 }}
+      {{- include "fastchat-web-server.selectorLabels" . | nindent 6 }}
   template:
     metadata:
       {{- with .Values.podAnnotations }}
@@ -16,7 +16,7 @@ spec:
         {{- toYaml . | nindent 8 }}
       {{- end }}
       labels:
-        {{- include "fastchat-model-worker.labels" . | nindent 8 }}
+        {{- include "fastchat-web-server.labels" . | nindent 8 }}
         {{- with .Values.podLabels }}
         {{- toYaml . | nindent 8 }}
         {{- end }}
@@ -25,7 +25,7 @@ spec:
       imagePullSecrets:
         {{- toYaml . | nindent 8 }}
       {{- end }}
-      serviceAccountName: {{ include "fastchat-model-worker.serviceAccountName" . }}
+      serviceAccountName: {{ include "fastchat-web-server.serviceAccountName" . }}
       containers:
         - name: {{ .Chart.Name }}
           image: "{{ .Values.image.repository }}:{{ .Values.image.tag | default .Chart.AppVersion }}"
@@ -33,23 +33,15 @@ spec:
           command: ["python3"]
           args:
             - -m
-            - fastchat.serve.model_worker
-            - --model-names
-            - vicuna-7b-v1.5
-            - --model-path
-            - lmsys/vicuna-7b-v1.5
-            - --worker-address
-            - http://fastchat-model-worker:21000
-            - --controller-address
+            - fastchat.serve.gradio_web_server
+            - --controller-url
             - http://fastchat-controller:20000
             - --host
             - 0.0.0.0
             - --port
             - "{{ .Values.service.port }}"
-            - --num-gpus
-            - "2"
           ports:
-            - name: model-worker
+            - name: web-server
               containerPort: {{ .Values.service.port }}
               protocol: TCP
           resources:

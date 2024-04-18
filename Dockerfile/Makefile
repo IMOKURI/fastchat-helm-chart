@@ -4,7 +4,7 @@ export
 NOW = $(shell date '+%Y%m%d-%H%M%S')
 ENV_VAL := "Hello world"
 
-IMAGE_TAG = 0.0.1
+IMAGE_TAG = 0.0.3
 
 .PHONY: build
 build: ## Build container image

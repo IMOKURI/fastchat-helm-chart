@@ -8,6 +8,6 @@ RUN apt-get install -y \
 
 RUN python3 -m pip install --no-cache-dir --upgrade pip setuptools
 
-RUN python3 -m pip install --no-cache-dir --upgrade fschat[model_worker,webui]
+RUN python3 -m pip install --no-cache-dir --upgrade fschat[model_worker,webui]==0.2.35
 
 WORKDIR /app
