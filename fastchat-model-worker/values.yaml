@@ -32,9 +32,13 @@ service:
   type: ClusterIP
   port: 21000
 
+model:
+  name: vicuna-7b-v1.5
+  path: lmsys/vicuna-7b-v1.5
+
 resources:
   limits:
-    nvidia.com/gpu: 2
+    nvidia.com/gpu: 1
   # We usually recommend not to specify default resources and to leave this as a conscious
   # choice for the user. This also increases chances charts run on environments with little
   # resources, such as Minikube. If you do want to specify resources, uncomment the following
@@ -71,4 +75,4 @@ env:
   - name: HTTP_PROXY
     value: http://hpeproxy.its.hpecorp.net:8080/
   - name: NO_PROXY
-    value: fastchat-controller,fastchat-model-worker,fastchat-api-server,fastchat-web-server,localhost,127.0.0.1,ponkots01,127.0.1.1,16.171.32.68,10.0.0.0/8,192.168.0.0/16,172.16.0.0/16
+    value: fastchat-model-worker-vicuna-7b,fastchat-controller,fastchat-model-worker,fastchat-api-server,fastchat-web-server,localhost,127.0.0.1,ponkots01,127.0.1.1,16.171.32.68,10.0.0.0/8,192.168.0.0/16,172.16.0.0/16

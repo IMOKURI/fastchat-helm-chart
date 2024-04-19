@@ -35,11 +35,11 @@ spec:
             - -m
             - fastchat.serve.model_worker
             - --model-names
-            - vicuna-7b-v1.5
+            - {{ .Values.model.name }}
             - --model-path
-            - lmsys/vicuna-7b-v1.5
+            - {{ .Values.model.path }}
             - --worker-address
-            - http://fastchat-model-worker:21000
+            - http://{{ include "fastchat-model-worker.fullname" . }}:{{ .Values.service.port }}
             - --controller-address
             - http://fastchat-controller:20000
             - --host
@@ -47,7 +47,7 @@ spec:
             - --port
             - "{{ .Values.service.port }}"
             - --num-gpus
-            - "2"
+            - "{{ index .Values.resources.limits "nvidia.com/gpu" }}"
           ports:
             - name: model-worker
               containerPort: {{ .Values.service.port }}

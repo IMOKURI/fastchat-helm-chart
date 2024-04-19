@@ -10,7 +10,12 @@ up-controller: ## Start controller
 
 .PHONY: up-model-worker
 up-model-worker: ## Start model-worker
-	cd ./fastchat-model-worker && helm upgrade --install fastchat-model-worker .
+	cd ./fastchat-model-worker && helm upgrade --install fastchat-model-worker . \
+		--set fullnameOverride=fastchat-model-worker-vicuna-7b \
+		--set model.name=vicuna-7b-v1.5 \
+		--set model.path=lmsys/vicuna-7b-v1.5 \
+		--set service.port=21000 \
+		--set resources.limits."nvidia\.com/gpu"=1
 
 .PHONY: up-api-server
 up-api-server: ## Start api-server
@@ -22,7 +27,10 @@ up-web-server: ## Start web-server
 
 .PHONY: down
 down: ## Stop all services
-	helm uninstall fastchat-controller fastchat-model-worker fastchat-api-server fastchat-web-server
+	helm uninstall fastchat-web-server || :
+	helm uninstall fastchat-api-server || :
+	helm uninstall fastchat-model-worker || :
+	helm uninstall fastchat-controller
 
 
 .PHONY: check-env
