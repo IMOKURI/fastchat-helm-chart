@@ -4,6 +4,10 @@ export
 NOW = $(shell date '+%Y%m%d-%H%M%S')
 ENV_VAL := "Hello world"
 
+.PHONY: build push
+build push: ## Build/Push Docker Image
+	make -C Dockerfile $(MAKECMDGOALS)
+
 .PHONY: up-controller
 up-controller: ## Start controller
 	cd ./fastchat-controller && helm upgrade --install fastchat-controller .
@@ -11,7 +15,7 @@ up-controller: ## Start controller
 .PHONY: up-model-worker
 up-model-worker: ## Start model-worker
 	cd ./fastchat-model-worker && helm upgrade --install fastchat-model-worker . \
-		--set fullnameOverride=fastchat-model-worker-vicuna-7b \
+		--set fullnameOverride=fastchat-model-worker \
 		--set model.name=vicuna-7b-v1.5 \
 		--set model.path=lmsys/vicuna-7b-v1.5 \
 		--set service.port=21000 \

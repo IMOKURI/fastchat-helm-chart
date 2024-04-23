@@ -34,7 +34,7 @@ service:
 
 ingress:
   enabled: true
-  className: nginx
+  className: istio
   annotations: {}
     # kubernetes.io/ingress.class: nginx
     # kubernetes.io/tls-acme: "true"
@@ -73,10 +73,4 @@ volumeMounts: []
 #   mountPath: "/etc/foo"
 #   readOnly: true
 
-env:
-  - name: HTTPS_PROXY
-    value: http://hpeproxy.its.hpecorp.net:8080/
-  - name: HTTP_PROXY
-    value: http://hpeproxy.its.hpecorp.net:8080/
-  - name: NO_PROXY
-    value: fastchat-model-worker-vicuna-7b,fastchat-controller,fastchat-model-worker,fastchat-api-server,fastchat-web-server,localhost,127.0.0.1,ponkots01,127.0.1.1,16.171.32.68,10.0.0.0/8,192.168.0.0/16,172.16.0.0/16
+# env:
